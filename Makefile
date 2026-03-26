@@ -30,7 +30,7 @@ $(TARGET)/$(KernelPath)/%.o: $(KernelPath)/%.S
 	$(CC) $(GCCFLAGS) -c $< -o $@
 
 $(KernelImg): $(KernelObjectFiles)
-	$(LD) -nostdlib $(KernelObjectFiles) -T link.ld -o $(KernelELF)
+	$(LD) -nostdlib $(KernelObjectFiles) -T kernel/link.ld -o $(KernelELF)
 	$(OBJCPY) -O binary $(KernelELF) $(KernelImg)
 
 clean:
