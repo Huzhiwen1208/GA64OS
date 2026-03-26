@@ -3,6 +3,7 @@ SECTIONS
     . = 0x40100000;  /* Base address */
 
     .text : {
+        KEEP(*(.start.text))
         *(.text .text.*)
     }
 
