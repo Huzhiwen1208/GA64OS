@@ -21,5 +21,5 @@ _start:
     sub     w2, w2, #1          // w2--
     cbnz    w2, 3b              // If w2 is not zero, loop back to clear the next word
 4:
-    bl      main
+    bl      start_kernel
     b       1b                  // Loop indefinitely after main returns
