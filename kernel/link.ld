@@ -15,13 +15,15 @@ SECTIONS
         *(.data .data.*)
     }
 
+    . = ALIGN(8);
     .bss (NOLOAD) : {
-        . = ALIGN(16);
         __bss_start = .;
         *(.bss .bss.*)
         *(COMMON)
         __bss_end = .;
     }
+
+    
 
     _end = .;
 

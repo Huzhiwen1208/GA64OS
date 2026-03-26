@@ -8,7 +8,7 @@ static inline int uart_is_busy() {
     return UART_FR & (1 << 5);
 }
 
-static void uart_putc(char c) {
+void uart_putc(char c) {
     while (uart_is_busy());
     UART_DR = c;
 }

@@ -7,7 +7,8 @@ KernelObjectFiles=$(patsubst $(KernelPath)/%.S, $(TARGET)/$(KernelPath)/%.o, $(f
 KernelObjectFiles+=$(patsubst $(KernelPath)/%.c, $(TARGET)/$(KernelPath)/%.o, $(filter %.c, $(KernelSourceFiles)))
 
 CC=aarch64-linux-gnu-gcc
-GCCFLAGS=-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles -Ikernel/include
+CCFLAGS=-Wall -mgeneral-regs-only -nostdlib -g -Ikernel/include
+ARMFLAGS=-g -Ikernel/include
 LD=aarch64-linux-gnu-ld
 OBJCPY=aarch64-linux-gnu-objcopy
 
@@ -25,9 +26,9 @@ $(TARGET):
 	mkdir -p $(TARGET)/kernel/uart
 
 $(TARGET)/$(KernelPath)/%.o: $(KernelPath)/%.c
-	$(CC) $(GCCFLAGS) -c $< -o $@
+	$(CC) $(CCFLAGS) -c $< -o $@
 $(TARGET)/$(KernelPath)/%.o: $(KernelPath)/%.S
-	$(CC) $(GCCFLAGS) -c $< -o $@
+	$(CC) $(ARMFLAGS) -c $< -o $@
 
 $(KernelImg): $(KernelObjectFiles)
 	$(LD) -nostdlib $(KernelObjectFiles) -T kernel/link.ld -o $(KernelELF)
